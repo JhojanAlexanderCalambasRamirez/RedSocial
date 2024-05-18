@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Administrador</title>
+</head>
+
+<body>
+    <h1>Bienvenido Administrador</h1>
+    <p>Esta es la página de administrador. Aquí puedes crear nuevos usuarios y gestionar la red social.</p>
+    <p id="userInfo"></p>
+    <a href="registro.html">Registrar Nuevo Usuario</a><br>
+    <a href="file:///C:/xampp/htdocs/Parcial3Redes2190555FRONT/index5.html">Volver al inicio</a>
+
+    <script>
+        // Obtener el nombre del usuario almacenado en localStorage
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.getElementById("userInfo").textContent = `Bienvenido, ${username}`;
+        }
+    </script>
+</body>
+
+</html>

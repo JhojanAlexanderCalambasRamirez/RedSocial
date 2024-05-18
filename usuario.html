@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Usuario</title>
+</head>
+
+<body>
+    <h1>Bienvenido Usuario</h1>
+    <p>Esta es la página de usuario. Aquí puedes ver tus mensajes y seguir a otros usuarios.</p>
+    <p id="userInfo"></p>
+    <a href="file:///C:/xampp/htdocs/Parcial3Redes2190555FRONT/index5.html">Volver al inicio</a>
+
+    <h1>Crear Mensaje</h1>
+    <form id="messageForm">
+        <label for="contenido">Contenido del Mensaje:</label><br>
+        <textarea id="contenido" name="contenido" required></textarea><br>
+        <button type="submit">Enviar Mensaje</button>
+    </form>
+
+    <div id="message"></div>
+
+    <h1>Lista de Usuarios</h1>
+    <ul id="userList"></ul>
+    <h2>Usuarios Seguidos</h2>
+    <ul id="followingList"></ul>
+    <button id="followAllButton">Seguir a Todos</button>
+    <a href="index.html">Volver al inicio</a>
+    
+    <script src="messageScript.js"></script>
+    <script src="usuariosScript.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+</head>
+<body>
+    <h1>Registro de Usuario</h1>
+    <form id="registrationForm">
+        <label for="nombre_completo">Nombre Completo:</label>
+        <input type="text" id="nombre_completo" name="nombre_completo" required><br>
+        <label for="usuario">Usuario:</label>
+        <input type="text" id="usuario" name="usuario" required><br>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required><br>
+        <label for="rol">Rol:</label>
+        <select id="rol" name="rol">
+            <option value="usuario">Usuario</option>
+            <option value="administrador">Administrador</option>
+        </select><br>
+        <button type="submit">Registrar Usuario</button>
+    </form>
+    <a href="file:///C:/xampp/htdocs/Parcial3Redes2190555FRONT/index5.html">Volver al inicio</a>
+    <div id="message"></div>
+
+    <script src="registroScript.js"></script>
+</body>
+</html>
