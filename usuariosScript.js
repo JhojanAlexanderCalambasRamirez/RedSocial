@@ -114,21 +114,40 @@ async function updateFollowingList() {
 
         const followingUsers = await response.json();
         const followingList = document.getElementById('followingList');
-    
+        followingList.innerHTML = ''; // Limpiar la lista antes de volver a llenarla
 
         for (const following of followingUsers) {
-            const response = await fetch(`http://localhost:3001/auth/users/${following.usuarioS_id}`);
-            if (!response.ok) {
+            const userResponse = await fetch(`http://localhost:3001/auth/users/${following.usuarioS_id}`);
+            if (!userResponse.ok) {
                 throw new Error('Error al obtener datos del usuario seguido');
             }
 
-            const user = await response.json();
+            const user = await userResponse.json();
             const listItem = document.createElement('li');
             listItem.textContent = `${user.nombre_completo} (${user.usuario})`;
+
+            // Agregar los mensajes del usuario seguido
+            const messagesResponse = await fetch(`http://localhost:3003/relationship/following/${currentUser.id}/messages`);
+            if (!messagesResponse.ok) {
+                throw new Error('Error al obtener los mensajes del usuario seguido');
+            }
+
+            const messages = await messagesResponse.json();
+            const messagesList = document.createElement('ul');
+
+            messages.forEach(message => {
+                if (message.usuario_id === user.id) {
+                    const messageItem = document.createElement('li');
+                    messageItem.textContent = message.contenido;
+                    messagesList.appendChild(messageItem);
+                }
+            });
+
+            listItem.appendChild(messagesList);
             followingList.appendChild(listItem);
         }
 
-        alert('Lista de usuarios seguidos actualizada exitosamente');
+        alert('Lista de usuarios seguidos y sus mensajes actualizada exitosamente');
     } catch (error) {
         console.error('Error al actualizar la lista de usuarios seguidos:', error);
         alert('Error al actualizar la lista de usuarios seguidos');
