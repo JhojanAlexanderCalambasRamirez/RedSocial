@@ -1,18 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
     getUsersAndDisplay();
-
     document.getElementById('followAllButton').addEventListener('click', followAllUsers);
 });
 
 async function getUsersAndDisplay() {
     try {
-        const response = await fetch('http://localhost:3001/auth/users');
-        if (!response.ok) {
-            throw new Error('Error al obtener la lista de usuarios');
-        }
-        const users = await response.json();
+        const users = await getUsers();
         const userList = document.getElementById('userList');
-        userList.innerHTML = ''; // Limpiar la lista antes de llenarla
+        userList.innerHTML = ''; // Clear the list before filling it
+
         users.forEach(user => {
             const listItem = document.createElement('li');
             listItem.textContent = `${user.nombre_completo} (${user.usuario})`;
@@ -114,7 +110,7 @@ async function updateFollowingList() {
 
         const followingUsers = await response.json();
         const followingList = document.getElementById('followingList');
-        followingList.innerHTML = ''; // Limpiar la lista antes de volver a llenarla
+        followingList.innerHTML = ''; // Clear the list before filling it
 
         for (const following of followingUsers) {
             const userResponse = await fetch(`http://localhost:3001/auth/users/${following.usuarioS_id}`);
@@ -125,29 +121,10 @@ async function updateFollowingList() {
             const user = await userResponse.json();
             const listItem = document.createElement('li');
             listItem.textContent = `${user.nombre_completo} (${user.usuario})`;
-
-            // Agregar los mensajes del usuario seguido
-            const messagesResponse = await fetch(`http://localhost:3003/relationship/following/${currentUser.id}/messages`);
-            if (!messagesResponse.ok) {
-                throw new Error('Error al obtener los mensajes del usuario seguido');
-            }
-
-            const messages = await messagesResponse.json();
-            const messagesList = document.createElement('ul');
-
-            messages.forEach(message => {
-                if (message.usuario_id === user.id) {
-                    const messageItem = document.createElement('li');
-                    messageItem.textContent = message.contenido;
-                    messagesList.appendChild(messageItem);
-                }
-            });
-
-            listItem.appendChild(messagesList);
             followingList.appendChild(listItem);
         }
 
-        alert('Lista de usuarios seguidos y sus mensajes actualizada exitosamente');
+        alert('Lista de usuarios seguidos actualizada exitosamente');
     } catch (error) {
         console.error('Error al actualizar la lista de usuarios seguidos:', error);
         alert('Error al actualizar la lista de usuarios seguidos');
