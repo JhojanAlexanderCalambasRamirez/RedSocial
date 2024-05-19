@@ -13,13 +13,16 @@ async function getUsersAndDisplay() {
             const listItem = document.createElement('li');
             listItem.textContent = `${user.nombre_completo} (${user.usuario})`;
 
-            const followButton = document.createElement('button');
-            followButton.textContent = 'Seguir';
-            followButton.addEventListener('click', function() {
-                followUser(user.id);
+            const messagesList = document.createElement('ul');
+            listItem.appendChild(messagesList);
+
+            const messages = await getMessagesByUserId(user.id);
+            messages.forEach(message => {
+                const messageItem = document.createElement('li');
+                messageItem.textContent = message.contenido;
+                messagesList.appendChild(messageItem);
             });
 
-            listItem.appendChild(followButton);
             userList.appendChild(listItem);
         }
 
